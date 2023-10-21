@@ -1,20 +1,6 @@
 #include "sort.h"
 
 /**
- * swap_elements - Swap two elements in an array.
- * @x: first element
- * @y: second element. 
- */
-void swap_elements(int *x, int *y)
-{
-	int tmp;
-
-	tmp = *x;
-	*x = *y;
-	*y = tmp;
-}
-
-/**
  * partition_array - divide an array into subset using lomuto partition
  * @array: The array to partition.
  * @size: The size of the array.
