@@ -1,69 +1,79 @@
 #include "sort.h"
 
 /**
- * partition - parts the array into subarray
- * @array: array to part
- * @lb: lower bound of the array(first element)
- * @hb: higher bound of the array
- * @size: size of the array
- * Return: the part position
+ * partition_array - divide an array into subset using lomuto partition
+ * @array: The array to partition.
+ * @size: The size of the array.
+ * @lb: lower bound of array(first element).
+ * @hb: higher bound of array.
+ * Return: partition index.
  */
-size_t partition(int *array, size_t lb, size_t hb, size_t size)
+int partition_array(int *array, size_t size, int lb, int hb)
 {
-	size_t i, j;
-	int temp, pivot;
+	int *pivot, i, j, temp;
 
+	/*pivot points to element at higher bound*/
+	pivot = array + hb;
 	i = lb;
-	pivot = array[hb];
-
+	/*iterate thru array from lb to hb -1*/
 	for (j = lb; j < hb; j++)
 	{
-		if (array[j] <= pivot)
+		/*check is curr element is less than pivot element*/
+		if (array[j] < *pivot)
 		{
-			temp = array[i];
-			array[i] = array[j];
-			array[j] = temp;
+			/*for optimization sake*/
+			if (i < j)
+			{
+				/*swap curr element with element at i*/
+				temp = array[j];
+				array[j] = array[i];
+				array[i] = temp;
+				print_array(array, size);
+			}
 			i++;
 		}
 	}
-	temp = array[i];
-	array[i] = array[hb];
-	array[hb] = temp;
-	print_array(array, size);
+
+	if (array[i] > *pivot)
+	{
+		temp = array[j];
+		array[j] = array[i];
+		array[i] = temp;
+		print_array(array, size);
+	}
+
 	return (i);
 }
 
 /**
- * sort - sorts the array
- * @array: array to part
- * @lb: lower bound of the array(first element)
- * @hb: higher bound of the array
- * @size: size of the array
+ * sort - sort array using quicksort algorithm.
+ * @array: Array to sort
+ * @size: size of the array.
+ * @lb: Start index of partioned array.
+ * @hb: end index of partitioned array.
  */
-
-void sort(int *array, size_t lb, size_t hb, size_t size)
+void sort(int *array, size_t size, int lb, int hb)
 {
-	size_t part_location;
+	int partition;
 
-	if (lb < hb)
+	/*checks if there is more than one element in the subarray*/
+	if (hb > lb)
 	{
-		part_location = partition(array, lb, hb, size);
-		if (part_location != 0)
-		{
-			sort(array, lb, part_location - 1, size);
-		}
-		sort(array, part_location + 1, hb, size);
+		partition = partition_array(array, size, lb, hb);
+		sort(array, size, lb, partition - 1);
+		sort(array, size, partition + 1, hb);
 	}
 }
 
 /**
- * quick_sort - sorts array using quick sort(lomuto)
- * @array: array to sort
- * @size: size of the array
+ * quick_sort - Sort an array using quicksort algorithm in assending order
+ * @array: Array to sort
+ * @size: Size of array.
  */
-
 void quick_sort(int *array, size_t size)
 {
+	if (array == NULL || size < 2)
+		return;
 
-	sort(array, 0, size - 1, size);
+	sort(array, size, 0, size - 1);
 }
