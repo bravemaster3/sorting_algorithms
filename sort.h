@@ -26,5 +26,7 @@ void quick_sort(int *array, size_t size);
 void sort(int *array, size_t size, int lb, int hb);
 int partition_array(int *array, size_t size, int lb, int hb);
 void shell_sort(int *array, size_t size);
+void max_heapify(int *array, size_t size, size_t root, size_t size_of_heap);
+void heap_sort(int *array, size_t size);
 
 #endif /* SORT_H */
