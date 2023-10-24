@@ -28,5 +28,8 @@ int partition_array(int *array, size_t size, int lb, int hb);
 void shell_sort(int *array, size_t size);
 void max_heapify(int *array, size_t size, size_t root, size_t size_of_heap);
 void heap_sort(int *array, size_t size);
+void cocktail_sort_list(listint_t **list);
+void swap_nodes(listint_t **head, listint_t **node1, listint_t **node2);
+void cocktail_loop_forward(listint_t **list, listint_t **c, int *swapped);
 
 #endif /* SORT_H */
